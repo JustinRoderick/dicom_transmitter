@@ -1,0 +1,16 @@
+services:
+  orthanc:
+    image: orthancteam/orthanc
+    container_name: orthanc
+    ports:
+      - "8042:8042"
+    volumes:
+      - orthanc_data:/var/lib/orthanc/db
+    environment:
+      ORTHANC__HTTP__PORT: 8042
+      ORTHANC__ALLOW_ANONYMOUS: "true"
+      ORTHANC__DEFAULT_USER: admin
+      ORTHANC__DEFAULT_PASSWORD: password
+
+volumes:
+  orthanc_data:
