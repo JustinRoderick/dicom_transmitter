@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+fhirpy
+requests
+python-dotenv
+pytest
