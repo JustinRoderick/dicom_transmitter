@@ -1,5 +1,5 @@
 import requests
-from ..config import ORTHANC_URL
+from config import ORTHANC_URL
 
 def retrieve_dicom (accession_number: str):
     # Need to find correct URL for Orthanc
