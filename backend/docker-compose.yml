@@ -1,16 +1,16 @@
-version: "2"
 services:
   orthanc:
     image: orthancteam/orthanc
+    container_name: "backend-orthanc"
     ports: ["80:8042"]
     environment:
       ORTHANC__REGISTERED_USERS: |
         {"demo": "demo"}
-backend:
-  build:
-    context:
-    dockerfile: Dockerfile
-  ports:
-    - "8000:8000"
-  depends_on:
-    - orthanc
+  backend:
+    build:
+      context: .
+    container_name: "backend-fastapi"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - orthanc

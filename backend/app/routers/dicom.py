@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..api.dicom_handler import retrieve_dicom
+from api import dicom_handler
 
 router = APIRouter()
 
