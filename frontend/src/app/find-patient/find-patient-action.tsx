@@ -1,3 +1,5 @@
+"use server";
+
 import { PatientRequestSchema, PatientResponseSchema } from "@/validators";
 
 export async function FindPatientAction(

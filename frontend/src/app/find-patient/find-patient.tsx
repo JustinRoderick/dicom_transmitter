@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -25,7 +27,7 @@ export function FindPatient() {
         <CardHeader>
           <CardTitle>Find Patient</CardTitle>
           <CardDescription>
-            Search for patients based on Accession Number and MRN.
+            Search for patients using MRN and Accession Number.
           </CardDescription>
         </CardHeader>
         <CardContent>
