@@ -4,3 +4,4 @@ fhirpy
 requests
 python-dotenv
 pytest
+pydantic
