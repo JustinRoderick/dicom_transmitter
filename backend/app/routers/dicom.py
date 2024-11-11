@@ -3,11 +3,7 @@ from api.dicom_handler import *
 
 router = APIRouter()
 
-@router.get("/{accession_number}")
-async def get_dicom(accession_number: str):
-    return retrieve_dicom(accession_number)
-
-@router.get("/orthanc_id/{accession_number}")
+@router.get("/studies/accession/{accession_number}")
 async def get_orthanc_id(accession_number: str):
     return {"AccessionNumber": accession_number, 
             "ID": query_orthanc_id_by_accession(accession_number)}
