@@ -8,19 +8,37 @@ def query_orthanc_id_by_accession (accession_number: str):
     response = requests.get(url)
     if response.status_code != requests.codes.ok:
         response.raise_for_status()
-        return {"error": response.status_code}
+        return {"error": "No matching studies found"}
 
     response_data = response.json()
 
     matches = []
     for study in response_data:
-        tags = study['MainDicomTags']
-        if 'AccessionNumber' in tags and tags['AccessionNumber'] == accession_number:
-            matches.append(study['ID'])
+        tags = study["MainDicomTags"]
+        if "AccessionNumber" in tags and tags["AccessionNumber"] == accession_number:
+            matches.append(study["ID"])
     return {"matching_ids": matches}
 
-def query_patient_resource_by_id (orthanc_id: str):
-    return {"ID": "0", "Type": "PatientPlaceholder"}
+def query_study_by_id (orthanc_id: str):
+    url = f"{ORTHANC_URL}/studies/{orthanc_id}"
+    response = requests.get(url)
+    if response.status_code != requests.codes.ok:
+        response.raise_for_status()
+        return {"error": "Study not found"}
 
-def query_study_resource_by_id (orthanc_id: str):
-    return {"ID": "ABC", "Type": "StudyPlaceholder"}
+    return response.json()
+
+def query_patient_by_study_id (orthanc_id: str):
+    url = f"{ORTHANC_URL}/studies/{orthanc_id}/patient"
+    response = requests.get(url)
+    if response.status_code != requests.codes.ok:
+        response.raise_for_status()
+        return {"error": "Patient not found"}
+
+    response_data = response.json()
+    tags = response_data['MainDicomTags']
+
+    if "PatientName" not in tags and "PatientBirthDate" not in tags:
+        return {"error": "Invalid patient resource"}
+    
+    return {"name": tags["PatientName"], "birthdate": tags["PatientBirthDate"]}
