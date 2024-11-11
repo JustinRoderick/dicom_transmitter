@@ -2,7 +2,7 @@ services:
   orthanc:
     image: orthancteam/orthanc
     container_name: "backend-orthanc"
-    ports: ["80:8042"]
+    ports: ["8042:8042"]
     environment:
       ORTHANC__REGISTERED_USERS: |
         {"demo": "demo"}
