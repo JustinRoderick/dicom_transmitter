@@ -1,14 +1,14 @@
-"use server";
+//"use server";
 
 import { PatientRequestSchema, PatientResponseSchema } from "@/validators";
 
 export async function FindPatientAction(
-  e: React.FormEvent,
+  //e: React.FormEvent,
   patientId: string,
   studyId: string,
   setResponse: React.Dispatch<React.SetStateAction<string>>
 ) {
-  e.preventDefault();
+  //e.preventDefault();
 
   const payload = { patient_id: patientId, study_id: studyId };
 
@@ -20,7 +20,7 @@ export async function FindPatientAction(
 
   try {
     // Need to find correct route URL
-    const response = await fetch("https://localhost:8000/", {
+    const response = await fetch("http://localhost:8000/process-patient-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

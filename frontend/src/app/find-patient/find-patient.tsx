@@ -32,9 +32,7 @@ export function FindPatient() {
         </CardHeader>
         <CardContent>
           <form
-            onSubmit={(e) =>
-              FindPatientAction(e, patientId, studyId, setResponse)
-            }
+          //onSubmit={() => FindPatientAction(patientId, studyId, setResponse)}
           >
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
@@ -60,9 +58,9 @@ export function FindPatient() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button
-            onClick={(e) =>
-              FindPatientAction(e, patientId, studyId, setResponse)
-            }
+            type="submit"
+            // Make button submit form to allow keyboard inputs
+            onClick={() => FindPatientAction(patientId, studyId, setResponse)}
           >
             Search
           </Button>
