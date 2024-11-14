@@ -37,8 +37,12 @@ def query_patient_by_study_id (orthanc_id: str):
 
     response_data = response.json()
     tags = response_data['MainDicomTags']
-
-    if "PatientName" not in tags and "PatientBirthDate" not in tags:
-        return {"error": "Invalid patient resource"}
     
-    return {"name": tags["PatientName"], "birthdate": tags["PatientBirthDate"]}
+    resname = "N/A"
+    resbirth = "N/A"
+    if "PatientName" in tags:
+        resname = tags["PatientName"]
+    if "PatientBirthDate" in tags: 
+        resbirth = tags["PatientBirthDate"]
+    
+    return {"name": resname, "birthdate": resbirth}
