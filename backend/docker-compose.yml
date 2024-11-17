@@ -2,10 +2,15 @@ services:
   orthanc:
     image: orthancteam/orthanc
     container_name: "backend-orthanc"
-    ports: ["80:8042"]
+    ports: ["8042:8042"]
     environment:
       ORTHANC__REGISTERED_USERS: |
         {"demo": "demo"}
+  hapi-fhir:
+    image: hapiproject/hapi:latest
+    container_name: "backend-hapi-fhir"
+    ports:
+      - "8080:8080"
   backend:
     build:
       context: .
@@ -14,3 +19,4 @@ services:
       - "8000:8000"
     depends_on:
       - orthanc
+      - hapi-fhir
