@@ -1,28 +1,9 @@
-import os
 import requests
 from fhirpy import SyncFHIRClient
-from dotenv import load_dotenv
-import base64
+from config import HAPI_FHIR_URL, ORTHANC_URL
 
-# Load environment variables from the .env file
-load_dotenv()
-
-# Define FHIR server configuration
-FHIR_SERVER_URL = os.getenv("FHIR_SERVER_URL", "http://localhost:8080/fhir")
-FHIR_USERNAME = os.getenv("FHIR_USERNAME", "your-username")
-FHIR_PASSWORD = os.getenv("FHIR_PASSWORD", "your-password")
-
-# DICOM server base URL
-DICOM_SERVER_URL = os.getenv("DICOM_SERVER_URL", "http://localhost:8000")
-
-# Encode the username and password in base64 for Basic Authentication
-auth_token = base64.b64encode(f"{FHIR_USERNAME}:{FHIR_PASSWORD}".encode()).decode()
-
-# Initialize FHIR client with custom headers for Basic Authentication
-client = SyncFHIRClient(
-    FHIR_SERVER_URL,
-    extra_headers={"Authorization": f"Basic {auth_token}"}
-)
+# Initialize FHIR client
+client = SyncFHIRClient(FHIR_SERVER_URL)
 
 # CREATE: Function to create a new Patient
 def create_patient(mrn, patient_id, family_name, given_name, gender="unknown", birth_date="1900-01-01"):
