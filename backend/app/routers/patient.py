@@ -19,6 +19,7 @@ async def process_patient_data(request: PatientRequest):
         logger.info(f"Received patient_id: {fhir_data}")
         logger.info(f"Received study_id: {dicom_data}")
         
+        
         return {"message": "Data retrieved successfully", "data": {"fhir_data": fhir_data, "dicom_data": dicom_data}}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="min-h-screen overflow-hidden">
       <body
-        className={`flex min-h-full h-screen flex-col bg-cover bg-gradient-to-b from-[#2e026d] to-[#15162c] antialiased`}
+        className={`flex min-h-full h-screen flex-col bg-cover bg-gradient-to-b from-[#171617] to-[#CF4B07] antialiased`}
       >
         {children}
       </body>

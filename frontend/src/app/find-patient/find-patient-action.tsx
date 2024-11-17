@@ -19,7 +19,6 @@ export async function FindPatientAction(
   }
 
   try {
-    // Need to find correct route URL
     const response = await fetch("http://localhost:8000/process-patient-data", {
       method: "POST",
       headers: {
