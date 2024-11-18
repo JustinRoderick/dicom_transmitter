@@ -2,6 +2,7 @@ import requests
 from config import ORTHANC_URL
 
 PARAM_STUDIES_EXPAND = "studies?requested-tags=AccessionNumber&expand"
+PARAM_PATIENTS_EXPAND = "patients?requested-tags=PatientID&expand"
 
 def query_orthanc_id_by_accession (accession_number: str):
     url = f"{ORTHANC_URL}/{PARAM_STUDIES_EXPAND}"
@@ -17,6 +18,22 @@ def query_orthanc_id_by_accession (accession_number: str):
         tags = study["MainDicomTags"]
         if "AccessionNumber" in tags and tags["AccessionNumber"] == accession_number:
             matches.append(study["ID"])
+    return {"matching_ids": matches}
+
+def query_patient_id_by_mrn (mrn: str):
+    url = f"{ORTHANC_URL}/{PARAM_PATIENTS_EXPAND}"
+    response = requests.get(url) 
+    if response.status_code != requests.codes.ok:
+        response.raise_for_status()
+        return {"error": "No matching patients found"}
+
+    response_data = response.json()
+
+    matches = []
+    for patient in response_data:
+        tags = patient["RequestedTags"]
+        if "PatientID" in tags and tags["PatientID"] == mrn:
+            matches.append(patient["ID"])
     return {"matching_ids": matches}
 
 def query_study_by_id (orthanc_id: str):

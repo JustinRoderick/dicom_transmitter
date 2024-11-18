@@ -7,6 +7,10 @@ router = APIRouter()
 async def get_orthanc_id(accession_number: str):
     return query_orthanc_id_by_accession(accession_number)
 
+@router.get("/mrn/{mrn}")
+async def get_patient_id(mrn: str):
+    return query_patient_id_by_mrn(mrn)
+
 @router.get("/{orthanc_id}")
 async def get_study_resource(orthanc_id: str):
     return query_study_by_id(orthanc_id)
