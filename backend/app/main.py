@@ -1,3 +1,4 @@
+import requests
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import fhir, dicom, patient
@@ -13,7 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(fhir.router)
+app.include_router(fhir.router, prefix="/fhir", tags=["fhir"])
 app.include_router(dicom.router)
 app.include_router(patient.router)
 
