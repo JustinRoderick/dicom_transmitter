@@ -3,8 +3,8 @@ from routers import fhir, dicom
 
 app = FastAPI()
 
-app.include_router(fhir.router)
-app.include_router(dicom.router)
+app.include_router(fhir.router, prefix="/fhir", tags=["fhir"])
+app.include_router(dicom.router, prefix="/dicom", tags=["dicom"])
 
 @app.get("/")
 async def read_root():

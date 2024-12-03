@@ -3,7 +3,7 @@ from fhirpy import SyncFHIRClient
 from config import HAPI_FHIR_URL, ORTHANC_URL
 
 # Initialize FHIR client
-client = SyncFHIRClient(FHIR_SERVER_URL)
+client = SyncFHIRClient(HAPI_FHIR_URL)
 
 # CREATE: Function to create a new Patient
 def create_patient(mrn, patient_id, family_name, given_name, gender="unknown", birth_date="1900-01-01"):
