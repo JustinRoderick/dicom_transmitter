@@ -1,5 +1,10 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
 from api.dicom_handler import *
+
+class Filter(BaseModel):
+    accession_number: str
+    mrn: str
 
 router = APIRouter()
 
@@ -14,6 +19,10 @@ async def get_patient_id(mrn: str):
 @router.get("/{orthanc_id}")
 async def get_study_resource(orthanc_id: str):
     return query_study_by_id(orthanc_id)
+
+@router.post("/find")
+async def find_study(query: Filter):
+    return query_mrn_accession_filter(query.accession_number, query.mrn)
 
 @router.get("/{orthanc_id}/patient")
 async def get_study_patient(orthanc_id: str):
