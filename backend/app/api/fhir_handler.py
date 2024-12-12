@@ -3,7 +3,27 @@ from fhirpy import SyncFHIRClient
 from config import HAPI_FHIR_URL, ORTHANC_URL
 
 # Initialize FHIR client
-client = SyncFHIRClient(HAPI_FHIR_URL)
+#client = SyncFHIRClient(FHIR_SERVER_URL)
+#client = SyncFHIRClient("http://localhost:8080/fhir")
+
+
+def create_new_patient(patient_data):
+    #url = f"{HAPI_FHIR_URL}/Patient"
+    url = "http://backend-hapi-fhir:8080/fhir/Patient"
+    headers = {"Content-Type": "application/fhir+json"}
+    response = requests.post(url, json=patient_data, headers=headers)
+    response.raise_for_status()
+    print("FHIR Server is reachable!")
+    return response.json()
+    
+def construct_patient_resource():
+    return {
+        "resourceType": "Patient",
+        "identifier": [{"value": "ANON6112200"}],
+        "name": [{"use": "official","family": "Doe","given": ["John"]}],
+        "gender": "male",
+        "birthDate": "1990-01-01"   
+    }
 
 # CREATE: Function to create a new Patient
 def create_patient(mrn, patient_id, family_name, given_name, gender="unknown", birth_date="1900-01-01"):
@@ -122,18 +142,15 @@ def get_series_by_study(study_id):
     return None
 
 # Example operations
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # Example: Create a Patient using DICOM data
-    study_id = "STUDY12345"
-    created_patient = create_patient_from_dicom(
-        study_id=study_id,
-        mrn="MRN12345",
-        patient_id="PID67890"
-    )
+  #  study_id = "STUDY12345"
+   # created_patient = create_patient_from_dicom(
+   #     study_id=study_id,
+    #    mrn="MRN12345",
+    #    patient_id="PID67890"
+  #  )
 
     # Retrieve the Patient by MRN
-    if created_patient:
-        get_patient_by_mrn("MRN12345")
-
-    # Uncomment to clear all Patients
-    # clear_all_patients()
+ #   if created_patient:
+  #      get_patient_by_mrn("MRN12345")
